@@ -39,8 +39,25 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## What would I do?
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If I'd have more time or if this would be a larger-scale application, I would prioritize the following enhancements:
+
+1. **Code Quality and Testing**: Improve code quality, add unit and make sure the coverage is above 95%, and set up end-to-end tests for robust functionality. 
+
+2. **User Interface**: Enhance the UI with transitions, animations, styled error states, and introduce code splitting with suspense and lazy loading.
+
+3. **Project Structure**: Consider moving the project to Vite from CRA, create a generic component library for commonly used components, and establish a theme and variables for CSS. 
+
+4. **State Management**: Leverage a state management library like Redux or MobX, and modularize the project structure for maintainability. This includes creating additional helper functions and improving their placement.
+
+5. **Functionality Enhancements**: 
+   - Add autofocus to inputs for immediate typing when adding/editing cards or columns.
+   - Combine add/edit card functions into a single helper function for use in NewCard/EditCardModal components.
+   - Implement sorting by priority and drag-drop functionality for cards within the same list.
+   - Enable auto-scrolling to a new card if it's not within the user's view.
+   - Allow assignment of tickets (cards) to users, with functionality to add/remove users.
+   - Make the application more responsive, starting with mobile-first design and adding styles for small-medium devices.
+   - Centralize type definitions in a single file within the each components folder.
+   - Use styled-components or CSS modules for better CSS management and to avoid style conflicts.
