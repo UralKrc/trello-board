@@ -1,6 +1,5 @@
 import { createPortal } from "react-dom";
 import "./styles.css";
-
 interface ModalProps {
   children: React.ReactNode;
   onClose: () => void;

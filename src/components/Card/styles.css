@@ -1,0 +1,19 @@
+.card-heading {
+  text-transform: uppercase;
+  color: #696B6F;
+}
+
+.card-content {
+  margin-bottom: 1em;
+  color: #282828;
+  font-weight: 600;
+  font-size: 1.2em;
+  word-break: break-all;
+}
+
+.card-description {
+  color: #282828;
+  word-break: break-all;
+  margin: 4px 0;
+  font-weight: 500;
+}

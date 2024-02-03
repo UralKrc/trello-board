@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Store, TColumn, initialData } from "../helpers/store";
+import { Store, TCard, TColumn, initialData } from "../helpers/store";
 import Column from "../components/Column";
 import AddColumn from "../components/AddColumn";
+import Card, { TCardMetadata } from "../components/Card";
+import AddCard from "../components/AddCard";
 
 function TrelloBoard () {
   const store = new Store();
+
   const [isAddColumnModalOpen, setAddColumnModalOpen] = useState(false);
   const [columns, setColumns] = useState<TColumn[]>(
     () => {
@@ -35,6 +38,24 @@ function TrelloBoard () {
     store.data = columns;
   };
 
+  const handleAddCard = ({ title, description, date, columnIndex }: TCard & { columnIndex: number }) => {
+    const cardList = columns[columnIndex];
+    cardList.cards.push({ title, description, date })
+
+    cardList.cards.sort((a, b) => {
+      return +new Date(b.date) - +new Date(a.date);
+    });
+    setColumns([...columns]);
+    store.data = columns;
+  }
+
+  const handleCardRemove = ({ columnIndex, cardIndex }: TCardMetadata) => {
+    const cardList = columns[columnIndex];
+    cardList.cards.splice(cardIndex, 1);
+    setColumns([...columns]);
+    store.data = columns;
+  }
+
   return (
     <>
       <section>
@@ -61,12 +82,20 @@ function TrelloBoard () {
             index={columnIndex}
             >
             {cards.map(({ title, description, date }, cardIndex) => (
-              <div key={cardIndex}>
-                <h2>{title}</h2>
-                <p>{description}</p>
-                <p>{date}</p>
-              </div>
+              <Card
+                title={title}
+                date={date}
+                description={description}
+                cardIndex={cardIndex}
+                columnIndex={columnIndex}
+                removeCard={handleCardRemove}
+                key={cardIndex} 
+              />
             ))}
+            <AddCard
+              columnIndex={columnIndex}
+              addCardItem={handleAddCard} 
+            />
           </Column>
         ))}
       </section>
