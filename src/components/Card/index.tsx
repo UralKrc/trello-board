@@ -10,6 +10,7 @@ export type TCardProps = TCardMetadata & {
   description: string;
   date: string;
   removeCard: ({ cardIndex, columnIndex }: TCardMetadata) => void;
+  editCard: ({ cardIndex, columnIndex }: TCardMetadata) => void;
 };
 
 const Card: React.FC<TCardProps> = ({ 
@@ -18,11 +19,16 @@ const Card: React.FC<TCardProps> = ({
   date, 
   cardIndex, 
   columnIndex, 
-  removeCard, 
+  removeCard,
+  editCard, 
 }) => {
 
   const handleRemoveCard = () => {
     removeCard({ cardIndex, columnIndex });
+  };
+
+  const handleEditCard = () => {
+    editCard({ cardIndex, columnIndex });
   };
 
   return (
@@ -46,6 +52,11 @@ const Card: React.FC<TCardProps> = ({
         <div className="card-description">{date}</div>
       </div>
       <div className="action-buttons">
+        <button onClick={handleEditCard}
+            className="icon-button"
+          >
+          edit
+        </button>
         <button onClick={handleRemoveCard}
           className="icon-button"
         >

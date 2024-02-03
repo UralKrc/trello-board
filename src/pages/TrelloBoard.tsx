@@ -4,11 +4,14 @@ import Column from "../components/Column";
 import AddColumn from "../components/AddColumn";
 import Card, { TCardMetadata } from "../components/Card";
 import AddCard from "../components/AddCard";
+import EditCard from "../components/EditCard";
 
 function TrelloBoard () {
   const store = new Store();
 
   const [isAddColumnModalOpen, setAddColumnModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({ cardIndex: -1, columnIndex: -1, card: { title: '', description: '', date: '' } });
   const [columns, setColumns] = useState<TColumn[]>(
     () => {
       if (Array.isArray(store.data) && store.data.length) {
@@ -56,6 +59,24 @@ function TrelloBoard () {
     store.data = columns;
   }
 
+  const handleEditCard = ({ columnIndex, cardIndex, title, description, date }: TCard & TCardMetadata) => {
+    const cardList = columns[columnIndex];
+    const card = cardList.cards[cardIndex];
+  
+    card.title = title;
+    card.description = description;
+    card.date = date;
+  
+    setColumns([...columns]);
+    store.data = columns;
+  }
+
+  const handleEditButton = ({ columnIndex, cardIndex }: TCardMetadata) => {
+    console.log(columnIndex, cardIndex);
+    setSelectedCard({ columnIndex, cardIndex, card: columns[columnIndex].cards[cardIndex] });
+    setEditModalOpen(true);
+  };
+
   return (
     <>
       <section>
@@ -89,6 +110,7 @@ function TrelloBoard () {
                 cardIndex={cardIndex}
                 columnIndex={columnIndex}
                 removeCard={handleCardRemove}
+                editCard={handleEditButton}
                 key={cardIndex} 
               />
             ))}
@@ -98,6 +120,17 @@ function TrelloBoard () {
             />
           </Column>
         ))}
+        {
+          isEditModalOpen && (
+            <EditCard
+              columnIndex={selectedCard.columnIndex}
+              cardIndex={selectedCard.cardIndex}
+              card={selectedCard.card}
+              closeModal={() => setEditModalOpen(false)}
+              editCard={handleEditCard}
+            />
+          )
+        }
       </section>
     </>
   );
