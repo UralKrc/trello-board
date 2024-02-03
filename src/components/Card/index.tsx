@@ -1,3 +1,4 @@
+import { DragEventHandler } from "react";
 import "./styles.css";
 
 export type TCardMetadata = {
@@ -11,6 +12,7 @@ export type TCardProps = TCardMetadata & {
   date: string;
   removeCard: ({ cardIndex, columnIndex }: TCardMetadata) => void;
   editCard: ({ cardIndex, columnIndex }: TCardMetadata) => void;
+  drag: (data: Omit<TCardProps, 'removeClick' | 'drag'>) => void;
 };
 
 const Card: React.FC<TCardProps> = ({ 
@@ -20,7 +22,8 @@ const Card: React.FC<TCardProps> = ({
   cardIndex, 
   columnIndex, 
   removeCard,
-  editCard, 
+  editCard,
+  drag,
 }) => {
 
   const handleRemoveCard = () => {
@@ -31,8 +34,23 @@ const Card: React.FC<TCardProps> = ({
     editCard({ cardIndex, columnIndex });
   };
 
+  const handleDragStart: DragEventHandler<HTMLDivElement> = (event: React.DragEvent) => {
+    const cardData = {
+      title,
+      description,
+      cardIndex,
+      columnIndex,
+      date,
+      editCard: () => handleEditCard(),
+      removeCard: () => handleRemoveCard(),
+    };
+
+    event.dataTransfer.setData("text", JSON.stringify(cardData));
+    drag(cardData);
+  };
+
   return (
-    <div className="card">
+    <div className="card" draggable="true" onDragStart={handleDragStart}>
       <div>
         <span className="card-heading">Title</span>
         <div className="card-content">{title}</div>

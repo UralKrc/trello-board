@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Store, TCard, TColumn, initialData } from "../helpers/store";
 import Column from "../components/Column";
 import AddColumn from "../components/AddColumn";
-import Card, { TCardMetadata } from "../components/Card";
+import Card, { TCardMetadata, TCardProps } from "../components/Card";
 import AddCard from "../components/AddCard";
 import EditCard from "../components/EditCard";
 
 function TrelloBoard () {
+  let draggedCard: Omit<TCardProps, 'removeClick' | 'drag'>;
   const store = new Store();
 
   const [isAddColumnModalOpen, setAddColumnModalOpen] = useState(false);
@@ -77,6 +78,26 @@ function TrelloBoard () {
     setEditModalOpen(true);
   };
 
+  const setDragged = (card: Omit<TCardProps, 'removeClick' | 'drag'>) => {
+    draggedCard = card
+  }
+
+  const cardDropped = (columnIndex: number) => {
+    const movedToColumn = columns[columnIndex];
+    const movedFromColumn = columns[draggedCard.columnIndex];
+    movedFromColumn.cards.splice(draggedCard.cardIndex, 1);
+    movedToColumn.cards.unshift({
+      title: draggedCard.title,
+      description: draggedCard.description,
+      date: draggedCard.date
+    });
+    movedToColumn.cards.sort((a, b) => {
+      return +new Date(b.date) - +new Date(a.date);
+    });
+    setColumns([...columns]);
+    store.data = columns;
+  }
+
   return (
     <>
       <section>
@@ -101,6 +122,7 @@ function TrelloBoard () {
             remove={handleColumnRemove}
             key={columnIndex}
             index={columnIndex}
+            cardDropped={cardDropped}
             >
             {cards.map(({ title, description, date }, cardIndex) => (
               <Card
@@ -111,6 +133,7 @@ function TrelloBoard () {
                 columnIndex={columnIndex}
                 removeCard={handleCardRemove}
                 editCard={handleEditButton}
+                drag={setDragged}
                 key={cardIndex} 
               />
             ))}

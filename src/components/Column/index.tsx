@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { DragEventHandler, ReactNode } from "react";
 import "./styles.css";
 
 export type TColumnProps = {
@@ -6,6 +6,7 @@ export type TColumnProps = {
   label: string;
   remove: (key: number) => void;
   children: ReactNode;
+  cardDropped: (columnIndex: number) => void;
 }
 
 const Column: React.FC<TColumnProps> = ({
@@ -13,11 +14,21 @@ const Column: React.FC<TColumnProps> = ({
   label,
   children,
   remove,
+  cardDropped,
 }: TColumnProps) => {
 
   const handleDeleteClick = () => {
     remove(index);
   };
+
+  const handleDrop: DragEventHandler<HTMLDivElement> = (event) => {
+    event.preventDefault();
+    cardDropped(index);
+  }
+
+  const allowDrop: DragEventHandler<HTMLDivElement> = (event) => {
+    event.preventDefault();
+  }
 
   return (
     <div className="column">
@@ -32,7 +43,12 @@ const Column: React.FC<TColumnProps> = ({
             </button>
         </div>
       </div>
-      <div className="cards">
+      <div 
+        className="cards" 
+        onDrop={handleDrop}
+        onDragOver={allowDrop}
+        onDragEnter={allowDrop}
+      >
         {children}
       </div>
     </div>
