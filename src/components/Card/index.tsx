@@ -1,4 +1,4 @@
-import { DragEventHandler } from "react";
+import { DragEventHandler, memo } from "react";
 import "./styles.css";
 
 export type TCardMetadata = {
@@ -15,7 +15,7 @@ export type TCardProps = TCardMetadata & {
   drag: (data: Omit<TCardProps, 'removeClick' | 'drag'>) => void;
 };
 
-const Card: React.FC<TCardProps> = ({ 
+function Card ({ 
   title, 
   description, 
   date, 
@@ -24,8 +24,7 @@ const Card: React.FC<TCardProps> = ({
   removeCard,
   editCard,
   drag,
-}) => {
-
+}: TCardProps) {
   const handleRemoveCard = () => {
     removeCard({ cardIndex, columnIndex });
   };
@@ -85,4 +84,4 @@ const Card: React.FC<TCardProps> = ({
   );
 }
 
-export default Card;
+export default memo(Card);

@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, memo } from "react";
 import Modal from "../Modal";
 
 type TAddColumnProps = {
@@ -6,7 +6,7 @@ type TAddColumnProps = {
   closeModal: () => void;
 }
 
-const AddColumn: React.FC<TAddColumnProps> = ({ addNewColumn, closeModal }) => {
+function NewColumnModal ({ addNewColumn, closeModal }: TAddColumnProps) {
   const [label, setLabel] = useState('');
 
   const handleAdd = (event: FormEvent) => {
@@ -34,4 +34,4 @@ const AddColumn: React.FC<TAddColumnProps> = ({ addNewColumn, closeModal }) => {
   );
 }
 
-export default AddColumn;
+export default memo(NewColumnModal);

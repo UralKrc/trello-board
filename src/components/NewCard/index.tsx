@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { TCard } from "../../helpers/store";
 import { getFormattedDate } from "../../helpers/getFormattedDate";
 
-type TAddCardProps = {
+type TNewCardProps = {
   addCardItem: (card: TCard & { columnIndex: number }) => void;
   columnIndex: number;
 }
 
-const AddCard: React.FC<TAddCardProps> = ({ addCardItem, columnIndex }) => {
-
+function NewCard ({ addCardItem, columnIndex }: TNewCardProps) {
   const [cardTitle, setCardTitle] = useState('');
   const [cardDescription, setCardDescription] = useState('');
   const [showCard, setShowCard] = useState(false);
@@ -72,4 +71,4 @@ const AddCard: React.FC<TAddCardProps> = ({ addCardItem, columnIndex }) => {
   )
 }
 
-export default AddCard;
+export default memo(NewCard);

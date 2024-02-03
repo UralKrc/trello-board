@@ -1,4 +1,4 @@
-import TrelloBoard from "./pages/TrelloBoard";
+import TrelloBoard from "./views/TrelloBoard";
 import './App.css';
 
 function App() {

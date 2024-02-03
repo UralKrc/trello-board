@@ -42,7 +42,7 @@ export const initialData: TColumn[] = [
   }
 ];
 
-export class Store {
+class Store {
   private dataKey: string = 'data';
 
   get data(): TColumn[] {
@@ -59,3 +59,6 @@ export class Store {
     localStorage.setItem(this.dataKey, JSON.stringify(data));
   }
 }
+
+const store = new Store();
+export default store;

@@ -12,7 +12,7 @@ type EditCardProps = {
   closeModal: () => void;
 };
 
-const EditCard: React.FC<EditCardProps> = ({ editCard, columnIndex, cardIndex, card, closeModal }) => {
+function EditCardModal ({ editCard, columnIndex, cardIndex, card, closeModal }: EditCardProps)  {
   const [cardTitle, setCardTitle] = useState(card.title);
   const [hasError, setError] = useState(false);
   const [cardDescription, setCardDescription] = useState(card.description);
@@ -61,4 +61,4 @@ const EditCard: React.FC<EditCardProps> = ({ editCard, columnIndex, cardIndex, c
   );
 };
 
-export default memo(EditCard);
+export default memo(EditCardModal);

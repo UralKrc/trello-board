@@ -9,14 +9,13 @@ export type TColumnProps = {
   dropCard: (columnIndex: number) => void;
 }
 
-const Column: React.FC<TColumnProps> = ({
+function Column ({
   index,
   label,
   children,
   remove,
   dropCard,
-}: TColumnProps) => {
-
+}: TColumnProps) {
   const handleDeleteClick = () => {
     remove(index);
   };
@@ -24,11 +23,11 @@ const Column: React.FC<TColumnProps> = ({
   const handleDrop: DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
     dropCard(index);
-  }
+  };
 
   const allowDrop: DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
-  }
+  };
 
   return (
     <div className="column">

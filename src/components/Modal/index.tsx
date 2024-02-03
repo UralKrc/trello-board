@@ -1,11 +1,13 @@
+import { memo } from "react";
 import { createPortal } from "react-dom";
 import "./styles.css";
-interface ModalProps {
+
+type ModalProps = {
   children: React.ReactNode;
   onClose: () => void;
-}
+};
 
-const Modal = ({ children, onClose }: ModalProps) => {
+function Modal ({ children, onClose }: ModalProps) {
   return createPortal(
     <div className="modal-container">
       <div className="modal">
@@ -17,4 +19,4 @@ const Modal = ({ children, onClose }: ModalProps) => {
   );
 };
 
-export default Modal;
+export default memo(Modal);
