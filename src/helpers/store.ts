@@ -42,14 +42,8 @@ export const initialData: TColumn[] = [
   }
 ];
 
-
-
 export class Store {
   private dataKey: string = 'data';
-
-  constructor() {
-    this.data = initialData;
-  }
 
   get data(): TColumn[] {
     const dataString = localStorage.getItem(this.dataKey);
