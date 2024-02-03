@@ -1,0 +1,32 @@
+.column {
+  border-radius: 0px 0px 8px 8px;
+  background-color: #e9e9e9;
+  max-height: 100%;
+  min-height: calc(100% - 30px);
+  width: 20em;
+  position: relative;
+  display: grid;
+  grid-template-rows: 64px 1fr;
+  box-shadow: 0px 5px 8px #00000073;
+}
+
+.container {
+  display: grid;
+  border-bottom: 1px solid #bbbbbb;
+  padding-left: 10px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+
+.cards {
+  padding: 10px 0;
+  overflow-y: auto;
+  min-width: 18em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 2em;
+}

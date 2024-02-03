@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Store, TColumn, initialData } from "../helpers/store";
+import Column from "../components/Column";
 
 function TrelloBoard () {
   const store = new Store();
@@ -14,13 +15,21 @@ function TrelloBoard () {
     }
   );
 
+  const handleColumnRemove = (key: number) => {
+    columns.splice(key, 1);
+    setColumns([...columns]);
+    store.data = columns;
+  };
+
   return (
     <div>
       {columns.map(({ label, cards }, columnIndex) => (
-        <div 
+        <Column 
+          label={label}
+          remove={handleColumnRemove}
           key={columnIndex}
-        >
-          <h1>{label}</h1>
+          index={columnIndex}
+          >
           {cards.map(({ title, description, date }, cardIndex) => (
             <div key={cardIndex}>
               <h2>{title}</h2>
@@ -28,7 +37,7 @@ function TrelloBoard () {
               <p>{date}</p>
             </div>
           ))}
-        </div>
+        </Column>
       ))}
     </div>
   );
