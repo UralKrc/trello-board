@@ -6,7 +6,7 @@ export type TColumnProps = {
   label: string;
   remove: (key: number) => void;
   children: ReactNode;
-  cardDropped: (columnIndex: number) => void;
+  dropCard: (columnIndex: number) => void;
 }
 
 const Column: React.FC<TColumnProps> = ({
@@ -14,7 +14,7 @@ const Column: React.FC<TColumnProps> = ({
   label,
   children,
   remove,
-  cardDropped,
+  dropCard,
 }: TColumnProps) => {
 
   const handleDeleteClick = () => {
@@ -23,7 +23,7 @@ const Column: React.FC<TColumnProps> = ({
 
   const handleDrop: DragEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
-    cardDropped(index);
+    dropCard(index);
   }
 
   const allowDrop: DragEventHandler<HTMLDivElement> = (event) => {

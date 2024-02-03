@@ -2,6 +2,7 @@ import { useState, useEffect, memo } from "react";
 import { TCardMetadata } from "../Card";
 import Modal from "../Modal";
 import { TCard } from "../../helpers/store";
+import { getFormattedDate } from "../../helpers/getFormattedDate";
 
 type EditCardProps = {
   editCard: (card: TCard & TCardMetadata) => void;
@@ -30,14 +31,7 @@ const EditCard: React.FC<EditCardProps> = ({ editCard, columnIndex, cardIndex, c
     }
 
     setError(false);
-    let timestamp = new Date();
-    let date = new Intl.DateTimeFormat('en-US', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit' }).format(timestamp);
+    const date = getFormattedDate();
     editCard({ 
       columnIndex, 
       cardIndex, 

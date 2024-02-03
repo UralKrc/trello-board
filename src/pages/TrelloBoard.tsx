@@ -6,13 +6,25 @@ import Card, { TCardMetadata, TCardProps } from "../components/Card";
 import AddCard from "../components/AddCard";
 import EditCard from "../components/EditCard";
 
+export type TSelectedCard = {
+  cardIndex: number;
+  columnIndex: number;
+  card: TCard;
+};
+
+const selectedCardData: TSelectedCard = {
+  cardIndex: -1, 
+  columnIndex: -1, 
+  card: { title: '', description: '', date: '' },
+}
+
 function TrelloBoard () {
   let draggedCard: Omit<TCardProps, 'removeClick' | 'drag'>;
   const store = new Store();
 
   const [isAddColumnModalOpen, setAddColumnModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({ cardIndex: -1, columnIndex: -1, card: { title: '', description: '', date: '' } });
+  const [selectedCard, setSelectedCard] = useState(selectedCardData);
   const [columns, setColumns] = useState<TColumn[]>(
     () => {
       if (Array.isArray(store.data) && store.data.length) {
@@ -24,7 +36,7 @@ function TrelloBoard () {
     }
   );
 
-  const addNewColumn = (label: string) => {
+  const handleAddNewColumn = (label: string) => {
     const updatedColumnList = [
       ...columns,
       {
@@ -73,7 +85,6 @@ function TrelloBoard () {
   }
 
   const handleEditButton = ({ columnIndex, cardIndex }: TCardMetadata) => {
-    console.log(columnIndex, cardIndex);
     setSelectedCard({ columnIndex, cardIndex, card: columns[columnIndex].cards[cardIndex] });
     setEditModalOpen(true);
   };
@@ -82,7 +93,7 @@ function TrelloBoard () {
     draggedCard = card
   }
 
-  const cardDropped = (columnIndex: number) => {
+  const dropCard = (columnIndex: number) => {
     const movedToColumn = columns[columnIndex];
     const movedFromColumn = columns[draggedCard.columnIndex];
     movedFromColumn.cards.splice(draggedCard.cardIndex, 1);
@@ -109,7 +120,7 @@ function TrelloBoard () {
         {
           isAddColumnModalOpen && (
             <AddColumn
-              addNewColumn={addNewColumn}
+              addNewColumn={handleAddNewColumn}
               closeModal={() => setAddColumnModalOpen(false)}
             />
           )
@@ -122,7 +133,7 @@ function TrelloBoard () {
             remove={handleColumnRemove}
             key={columnIndex}
             index={columnIndex}
-            cardDropped={cardDropped}
+            dropCard={dropCard}
             >
             {cards.map(({ title, description, date }, cardIndex) => (
               <Card

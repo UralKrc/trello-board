@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { TCard } from "../../helpers/store";
+import { getFormattedDate } from "../../helpers/getFormattedDate";
 
 type TAddCardProps = {
   addCardItem: (card: TCard & { columnIndex: number }) => void;
@@ -22,14 +23,7 @@ const AddCard: React.FC<TAddCardProps> = ({ addCardItem, columnIndex }) => {
     }
     
     setError(false);
-    let timestamp = new Date();
-    let date = new Intl.DateTimeFormat('en-US', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit' }).format(timestamp);
+    const date = getFormattedDate();
     addCardItem({
       columnIndex,
       title: cardTitle,

@@ -1,0 +1,124 @@
+.page-container {
+  display: grid;
+  grid-template-rows: 64px 64px calc(100vh - 192px);
+  height: 100vh;
+  row-gap: 2em;
+  padding-bottom: 48px;
+  background-color: #f8f8f8;
+}
+
+header {
+  text-align: center;
+  background-color: #000000;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 24px;
+}
+
+section {
+  display: flex;
+  gap: 24px;
+  padding: 0 16px;
+}
+
+.card {
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 18em;
+  box-shadow: 0px 3px 20px #00000029;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+button {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #3e3e3e;
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  text-transform: capitalize;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-card-button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(500, 150, 140, 0.7);
+  text-align: center;
+  border: none;
+}
+
+.close-button {
+  border: none;
+  font-size: 24px;
+  margin: 8px;
+}
+
+button:hover {
+  background: #000000;
+  color:#ffffff;
+}
+
+label {
+  width: 100%;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 8px;
+  text-align: left;
+}
+
+input {
+  border: 1px solid #3e3e3e;
+  border-radius: 4px;
+  padding: 8px;
+  height: 40px;
+  box-sizing: border-box;
+  font-weight: 500;
+  margin: 8px 0;
+  width: 100%;
+}
+
+textarea {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px;
+  font-weight: 500;
+  box-sizing: border-box;
+}
