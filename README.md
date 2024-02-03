@@ -48,7 +48,10 @@ If I'd have more time or if this would be a larger-scale application, I would pr
 
 2. **User Interface**: Enhance the UI with transitions, animations, styled error states, and introduce code splitting with suspense and lazy loading.
 
-3. **Project Structure**: Consider moving the project to Vite from CRA, create a generic component library for commonly used components, and establish a theme and variables for CSS. 
+3. **Project Structure**: 
+  - Consider moving the project to Vite from CRA because there are 8 vulnerabilities (2 moderate, 6 high) (https://overreacted.io/npm-audit-broken-by-design/).
+  - Create a generic component library for commonly used components.
+  - Establish a theme and variables for CSS. 
 
 4. **State Management**: Leverage a state management library like Redux or MobX, and modularize the project structure for maintainability. This includes creating additional helper functions and improving their placement.
 
